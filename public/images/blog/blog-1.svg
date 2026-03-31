@@ -1,0 +1,14 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="#C41F2E"/>
+  <rect width="1200" height="700" fill="url(#paint0_linear_1_7)"/>
+  <circle cx="995" cy="168" r="74" fill="#B7202E" stroke="#F4C279" stroke-width="8"/>
+  <path d="M995 94V242M921 168H1069" stroke="#F4C279" stroke-width="6"/>
+  <text x="90" y="330" fill="#FFE8B5" font-family="Georgia" font-size="180" font-weight="700">SALE</text>
+  <text x="170" y="445" fill="white" font-family="Arial" font-size="44" font-weight="700">CHUONG TRINH KHUYEN MAI CHAO XUAN 2025</text>
+  <defs>
+    <linearGradient id="paint0_linear_1_7" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D72834"/>
+      <stop offset="1" stop-color="#9B1824"/>
+    </linearGradient>
+  </defs>
+</svg>

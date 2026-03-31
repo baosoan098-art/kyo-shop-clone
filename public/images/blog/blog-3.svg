@@ -1,0 +1,16 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="url(#paint0_linear_1_8)"/>
+  <ellipse cx="925" cy="462" rx="180" ry="105" fill="#F3DDE2"/>
+  <path d="M800 116C917 85 1030 139 1081 234C1116 297 1126 379 1085 450" stroke="#6A524E" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="1110" cy="106" r="88" fill="#F0D8DD"/>
+  <circle cx="1036" cy="72" r="58" fill="#F5E7E0"/>
+  <rect x="867" y="336" width="154" height="206" rx="18" fill="#D6B0B8"/>
+  <text x="160" y="544" fill="white" font-family="Arial" font-size="62" font-weight="700">TOP 5 CHAI NUOC HOA NU</text>
+  <text x="160" y="610" fill="white" font-family="Arial" font-size="54" font-weight="700">MUI NGOT KHIEN CHANG SAY DAM</text>
+  <defs>
+    <linearGradient id="paint0_linear_1_8" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF2EC"/>
+      <stop offset="1" stop-color="#F5D1D9"/>
+    </linearGradient>
+  </defs>
+</svg>

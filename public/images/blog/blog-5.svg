@@ -1,0 +1,16 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="#141414"/>
+  <rect width="1200" height="700" fill="url(#paint0_linear_1_10)"/>
+  <circle cx="280" cy="220" r="138" fill="#272727"/>
+  <circle cx="570" cy="210" r="126" fill="#3A3A3A"/>
+  <circle cx="830" cy="214" r="130" fill="#242424"/>
+  <rect x="280" y="464" width="188" height="202" rx="18" fill="#F4EBDD"/>
+  <text x="130" y="542" fill="white" font-family="Arial" font-size="54" font-weight="700">TOP 5 CHAI NUOC HOA UNISEX</text>
+  <text x="135" y="606" fill="white" font-family="Arial" font-size="52" font-weight="700">DUOC YEU THICH NHAT HIEN NAY</text>
+  <defs>
+    <linearGradient id="paint0_linear_1_10" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#555555"/>
+      <stop offset="1" stop-color="#121212"/>
+    </linearGradient>
+  </defs>
+</svg>

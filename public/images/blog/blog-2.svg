@@ -1,0 +1,8 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="#D7D7D7"/>
+  <rect x="80" y="118" width="220" height="350" rx="18" fill="#C9A64E"/>
+  <rect x="225" y="152" width="180" height="316" rx="18" fill="#D9BA63"/>
+  <rect x="345" y="190" width="235" height="278" rx="18" fill="#E04C4C"/>
+  <rect x="135" y="256" width="900" height="126" rx="10" transform="rotate(-6 135 256)" fill="white" fill-opacity="0.82" stroke="#E52424" stroke-width="14"/>
+  <text x="215" y="355" transform="rotate(-6 215 355)" fill="#E52424" font-family="Arial" font-size="120" font-weight="700">FAKESHOP</text>
+</svg>

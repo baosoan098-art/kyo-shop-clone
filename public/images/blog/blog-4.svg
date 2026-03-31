@@ -1,0 +1,14 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="url(#paint0_linear_1_9)"/>
+  <ellipse cx="280" cy="375" rx="240" ry="215" fill="#D9EEF7"/>
+  <path d="M50 406C175 335 252 202 273 104" stroke="#A7DBEA" stroke-width="18" stroke-linecap="round"/>
+  <rect x="784" y="420" width="132" height="190" rx="16" fill="#75A8DA"/>
+  <text x="84" y="544" fill="white" font-family="Arial" font-size="56" font-weight="700">TOP 5 CHAI NUOC HOA MUI THANH MAT</text>
+  <text x="210" y="610" fill="white" font-family="Arial" font-size="54" font-weight="700">CHO NU VAO MUA HE</text>
+  <defs>
+    <linearGradient id="paint0_linear_1_9" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#DDF4FB"/>
+      <stop offset="1" stop-color="#78B7E5"/>
+    </linearGradient>
+  </defs>
+</svg>

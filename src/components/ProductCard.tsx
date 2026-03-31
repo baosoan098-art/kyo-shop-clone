@@ -1,161 +1,161 @@
 import Link from "next/link";
 
-import {
-  getProductPurchaseLabel,
-  getProductStockBadgeClassName,
-  getProductStockLabel,
-  isProductOutOfStock,
-} from "@/lib/stock";
-
 type ProductRecord = {
-  id?: string | number;
+  id: string | number;
   slug?: string;
-  section?: string;
-  name?: string;
-  title?: string;
+  name: string;
   image?: string;
   hoverImage?: string;
-  price?: number | string;
-  oldPrice?: number | string;
-  categories?: string[] | string;
-  category?: string;
-  [key: string]: unknown;
+  price: number;
+  oldPrice?: number;
+  categories?: string[];
+  sectionLabel?: string;
+  section?: string;
+  stockStatus?: string;
+  stock?: number;
+  quantity?: number;
+  inventory?: number;
+  inStock?: boolean;
 };
 
-function toPrice(value: unknown) {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : 0;
+const fallbackProductImage =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520">
+      <rect width="520" height="520" rx="36" fill="#fff4f8"/>
+      <text x="260" y="235" text-anchor="middle" font-size="40" fill="#ef3f7d" font-family="Arial">KYO</text>
+      <text x="260" y="290" text-anchor="middle" font-size="24" fill="#6b5f66" font-family="Arial">No Image</text>
+    </svg>
+  `);
+
+function formatPrice(value?: number) {
+  if (typeof value !== "number" || Number.isNaN(value)) {
+    return "";
+  }
+
+  return `${value.toLocaleString("vi-VN")} đ`;
 }
 
-function formatPrice(value: unknown) {
-  return `${toPrice(value).toLocaleString("vi-VN")} đ`;
+function normalizeAssetPath(value?: string | null) {
+  if (!value) {
+    return fallbackProductImage;
+  }
+
+  if (/^(https?:)?\/\//.test(value) || value.startsWith("data:")) {
+    return value;
+  }
+
+  return value.startsWith("/") ? value : `/${value}`;
 }
 
-function getProductHref(product: ProductRecord) {
-  if (product.slug) {
-    return `/product/${product.slug}`;
+function getCategoryLabel(product: ProductRecord) {
+  if (Array.isArray(product.categories) && product.categories.length > 0) {
+    return product.categories.join(" • ").toUpperCase();
   }
 
-  if (product.section && product.id !== undefined) {
-    return `/product/${product.section}-${product.id}`;
+  if (product.sectionLabel) {
+    return product.sectionLabel.toUpperCase();
   }
 
-  if (product.id !== undefined) {
-    return `/product/${product.id}`;
+  if (product.section) {
+    return product.section.toUpperCase();
   }
 
-  return "/shop";
+  return "SẢN PHẨM NỔI BẬT";
 }
 
-function getProductName(product: ProductRecord) {
-  return String(product.name || product.title || "Sản phẩm");
-}
-
-function getCategoryText(product: ProductRecord) {
-  if (Array.isArray(product.categories)) {
-    return product.categories.join(" • ");
+function isOutOfStock(product: ProductRecord) {
+  if (typeof product.inStock === "boolean") {
+    return !product.inStock;
   }
 
-  if (typeof product.categories === "string" && product.categories.trim()) {
-    return product.categories;
+  const numericStock = [product.stock, product.quantity, product.inventory].find(
+    (value) => typeof value === "number",
+  );
+
+  if (typeof numericStock === "number") {
+    return numericStock <= 0;
   }
 
-  if (typeof product.category === "string" && product.category.trim()) {
-    return product.category;
-  }
-
-  return product.section === "perfume"
-    ? "Nước Hoa"
-    : product.section === "lipstick"
-      ? "Son Môi"
-      : "Quà Tặng";
+  return String(product.stockStatus ?? "")
+    .toLowerCase()
+    .includes("out");
 }
 
 export default function ProductCard({ product }: { product: ProductRecord }) {
-  const href = getProductHref(product);
-  const productName = getProductName(product);
-  const outOfStock = isProductOutOfStock(product);
-  const primaryImage = product.image ? String(product.image) : "";
-  const secondaryImage = product.hoverImage ? String(product.hoverImage) : primaryImage;
+  const href = `/product/${product.slug ?? product.id}`;
+  const mainImage = normalizeAssetPath(product.image);
+  const hoverImage = product.hoverImage
+    ? normalizeAssetPath(product.hoverImage)
+    : mainImage;
+  const soldOut = isOutOfStock(product);
 
   return (
-    <article className="group flex h-full flex-col">
-      <Link
-        href={href}
-        className="flex h-full flex-col bg-transparent px-3 pb-4 pt-2 transition"
-      >
-        <div className="relative overflow-hidden rounded-[20px] bg-white">
-          <span
-            className={`absolute left-3 top-3 z-10 inline-flex rounded-full px-4 py-1.5 text-[0.76rem] font-bold tracking-[0.16em] ${getProductStockBadgeClassName(
-              product,
-            )}`}
-          >
-            {getProductStockLabel(product)}
-          </span>
+    <article className="group flex h-full flex-col text-center">
+      <div className="relative overflow-hidden rounded-[26px] bg-white">
+        <span
+          className={`absolute left-4 top-4 z-10 rounded-full px-4 py-2 text-[0.82rem] font-semibold uppercase tracking-[0.14em] ${
+            soldOut
+              ? "bg-[#fff1f1] text-[#e34646]"
+              : "bg-[#ebfff2] text-[#0a8f55]"
+          }`}
+        >
+          {soldOut ? "Hết hàng" : "Còn hàng"}
+        </span>
 
-          {primaryImage ? (
-            <div className="relative h-[260px] w-full overflow-hidden rounded-[20px] bg-white">
-              <img
-                src={primaryImage}
-                alt={productName}
-                className={`absolute inset-0 h-full w-full object-cover transition duration-500 ${
-                  secondaryImage && secondaryImage !== primaryImage
-                    ? "opacity-100 group-hover:opacity-0"
-                    : "opacity-100"
-                }`}
-              />
-              {secondaryImage && secondaryImage !== primaryImage ? (
-                <img
-                  src={secondaryImage}
-                  alt={`${productName} hover`}
-                  className="absolute inset-0 h-full w-full object-cover opacity-0 transition duration-500 group-hover:opacity-100"
-                />
-              ) : null}
-            </div>
-          ) : (
-            <div className="flex h-[260px] w-full items-center justify-center text-sm font-semibold text-[#b48795]">
-              Không có ảnh
-            </div>
-          )}
-        </div>
+        <Link href={href} className="block">
+          <div className="relative aspect-[4/4.45] overflow-hidden bg-white">
+            <img
+              src={mainImage}
+              alt={product.name}
+              className="absolute inset-0 h-full w-full object-contain p-5 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-0"
+            />
+            <img
+              src={hoverImage}
+              alt={product.name}
+              className="absolute inset-0 h-full w-full object-contain p-5 opacity-0 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
+            />
+          </div>
+        </Link>
+      </div>
 
-        <div className="mt-5 flex-1 text-center">
-          <p className="text-[0.84rem] uppercase tracking-[0.34em] text-[#d26d92]">
-            {getCategoryText(product)}
-          </p>
+      <div className="mt-6 flex flex-1 flex-col">
+        <p className="text-[0.92rem] uppercase tracking-[0.28em] text-[#d9638e]">
+          {getCategoryLabel(product)}
+        </p>
 
-          <h3 className="mt-4 line-clamp-3 min-h-[124px] text-[1rem] font-semibold leading-10 text-[#16111d]">
-            {productName}
+        <Link href={href} className="mt-4 block">
+          <h3 className="text-[1rem] font-semibold leading-10 text-[#171530]">
+            {product.name}
           </h3>
+        </Link>
 
-          <div className="mt-4 flex items-end justify-center gap-3">
-            {toPrice(product.oldPrice) > 0 ? (
-              <span className="text-[0.95rem] text-[#f08a8a] line-through">
-                {formatPrice(product.oldPrice)}
-              </span>
-            ) : null}
-            <span className="text-[1.05rem] font-bold text-[#ea1b0a]">
-              {formatPrice(product.price)}
+        <div className="mt-5 flex items-center justify-center gap-2 text-[0.98rem]">
+          {typeof product.oldPrice === "number" ? (
+            <span className="text-[#f09ca8] line-through">
+              {formatPrice(product.oldPrice)}
             </span>
-          </div>
-
-          <div className="mt-4 text-[1rem] tracking-[0.34em] text-[#ff4e8f]">
-            {"★★★★★"}
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <span
-            className={`inline-flex h-14 w-full items-center justify-center rounded-[18px] text-[1rem] font-semibold transition ${
-              outOfStock
-                ? "border border-[#f2ccd7] bg-[#fff7fa] text-[#d3456d]"
-                : "bg-[#ee2f78] text-white hover:bg-[#d92468]"
-            }`}
-          >
-            {getProductPurchaseLabel(product)}
+          ) : null}
+          <span className="font-bold text-[#ef230f]">
+            {formatPrice(product.price)}
           </span>
         </div>
-      </Link>
+
+        <div className="mt-5 text-[1rem] tracking-[0.18em] text-[#ff4a86]">
+          {"★★★★★"}
+        </div>
+
+        <Link
+          href={href}
+          className={`mt-8 inline-flex h-14 items-center justify-center rounded-full px-8 text-[1.02rem] font-semibold uppercase transition ${
+            soldOut
+              ? "border border-[#f2ccd8] bg-white text-[#d9537f] hover:bg-[#fff6f8]"
+              : "bg-[#ef3f7d] text-white hover:bg-[#d92d69]"
+          }`}
+        >
+          {soldOut ? "Hết hàng - Liên hệ" : "Mua ngay"}
+        </Link>
+      </div>
     </article>
   );
 }

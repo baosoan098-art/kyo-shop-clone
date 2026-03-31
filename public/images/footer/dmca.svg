@@ -1,0 +1,8 @@
+<svg width="122" height="58" viewBox="0 0 122 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="122" height="58" rx="6" fill="#62B233"/>
+  <rect y="36" width="122" height="22" fill="#1F2A1A"/>
+  <path d="M18 14H30V28H18V14Z" fill="white"/>
+  <path d="M21 17H27V20H21V17ZM23 20H25V25H23V20Z" fill="#62B233"/>
+  <text x="38" y="28" fill="white" font-family="Arial" font-size="24" font-weight="700">DMCA</text>
+  <text x="10" y="51" fill="white" font-family="Arial" font-size="14" font-weight="700" letter-spacing="2">PROTECTED</text>
+</svg>
