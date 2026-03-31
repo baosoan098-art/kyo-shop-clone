@@ -167,8 +167,8 @@ export default function AdminPage() {
       setProducts(nextProducts);
         const normalizedUsers = nextUsers.map((user) => ({
           ...user,
-          role: user.role === "admin" ? "admin" : "user",
-        }));
+          role: user.role === "admin" ? ("admin" as const) : ("user" as const),
+        })) as typeof users;
 
         setCategories(nextCategories);
         setOrders(nextOrders);
