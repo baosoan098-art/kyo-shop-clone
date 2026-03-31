@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-type Role = "admin" | "user";
+type Role = "admin" | "user" | string;
 type SessionUser = { id: string; fullName?: string; username?: string; email?: string; role?: Role };
 type Stats = { totalProducts: number; totalOrders: number; totalUsers: number; revenue: number };
 type Product = {
