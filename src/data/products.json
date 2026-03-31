@@ -1,0 +1,158 @@
+[
+  {
+    "id": 1,
+    "name": "Set Nước Hoa Nữ Gucci Mini Gucci Flora Eau de Parfum EDP 3 Món (3 x 5ml)",
+    "image": "/images/products/product-1.jpg",
+    "hoverImage": "/images/products/product-1-hover.jpg",
+    "origin": "Italy",
+    "categories": [
+      "Quà Tặng",
+      "Nước Hoa"
+    ],
+    "oldPrice": 2300000,
+    "price": 20000000,
+    "discount": 31,
+    "rating": 5,
+    "brand": "",
+    "sectionLabel": "",
+    "stockStatus": "out_of_stock"
+  },
+  {
+    "id": 2,
+    "name": "Bộ Quà Tặng Dầu Gội & Dầu Xả Batious Tím Cao Cấp Kèm Bông Tắm",
+    "image": "/images/products/product-2.jpg",
+    "hoverImage": "/images/products/product-2-hover.jpg",
+    "origin": "Hàn Quốc",
+    "categories": [
+      "Quà Tặng",
+      "Chăm Sóc Tóc"
+    ],
+    "oldPrice": 880000,
+    "price": 610000,
+    "discount": 31,
+    "rating": 5
+  },
+  {
+    "id": 3,
+    "name": "Set YSL Candy Glow Pink Sunrise mini và YSL Libre EDP mini kèm túi hàng",
+    "image": "/images/products/product-3.jpg",
+    "hoverImage": "/images/products/product-3-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Quà Tặng",
+      "Son Môi",
+      "Nước Hoa"
+    ],
+    "oldPrice": 1780000,
+    "price": 1120000,
+    "discount": 37,
+    "rating": 5
+  },
+  {
+    "id": 4,
+    "name": "Set Dior son 707 cam cháy tester và Miss Dior EDT Mini kèm túi hàng",
+    "image": "/images/products/product-4.jpg",
+    "hoverImage": "/images/products/product-4-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Quà Tặng",
+      "Son Môi",
+      "Nước Hoa"
+    ],
+    "oldPrice": 1690000,
+    "price": 1080000,
+    "discount": 36,
+    "rating": 5
+  },
+  {
+    "id": 5,
+    "name": "Son Dior Rouge Dior Limited Edition Lunar New Year 756 Organza",
+    "image": "/images/products/product-6.jpg",
+    "hoverImage": "/images/products/product-5-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 2600000,
+    "price": 1760000,
+    "discount": 32,
+    "rating": 5
+  },
+  {
+    "id": 6,
+    "name": "Set Son Dior Phiên Bản Tết Hồng San Hô Kèm Mini Nước Hoa",
+    "image": "/images/products/product-6.jpg",
+    "hoverImage": "/images/products/product-6-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Quà Tặng",
+      "Son Môi",
+      "Nước Hoa"
+    ],
+    "oldPrice": 2600000,
+    "price": 1760000,
+    "discount": 32,
+    "rating": 5
+  },
+  {
+    "id": 7,
+    "name": "Hộp Quà Makeup Peach Glow Edition kèm cushion, son và cọ mini",
+    "image": "/images/products/product-7.jpg",
+    "hoverImage": "/images/products/product-7-hover.jpg",
+    "origin": "Hàn Quốc",
+    "categories": [
+      "Quà Tặng",
+      "Trang Điểm Mặt"
+    ],
+    "oldPrice": 1450000,
+    "price": 790000,
+    "discount": 45,
+    "rating": 5
+  },
+  {
+    "id": 8,
+    "name": "Set Rouge Dior mini box kèm son và kem nền phiên bản giới hạn",
+    "image": "/images/products/product-8.jpg",
+    "hoverImage": "/images/products/product-8-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Quà Tặng",
+      "Son Môi",
+      "Trang Điểm Mặt"
+    ],
+    "oldPrice": 1560000,
+    "price": 1120000,
+    "discount": 28,
+    "rating": 5
+  },
+  {
+    "id": 9,
+    "name": "Gift Box Dior mini cho quà tặng sinh nhật sang trọng và nhẹ nhàng",
+    "image": "/images/products/product-9.jpg",
+    "hoverImage": "/images/products/product-9-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Quà Tặng"
+    ],
+    "oldPrice": 1900000,
+    "price": 1160000,
+    "discount": 39,
+    "rating": 5
+  },
+  {
+    "id": 10,
+    "name": "Combo Dior Holiday đỏ kèm son, nước hoa mini và túi quà phiên bản lễ hội",
+    "image": "/images/products/product-10.jpg",
+    "hoverImage": "/images/products/product-10-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Quà Tặng",
+      "Son Môi",
+      "Nước Hoa"
+    ],
+    "oldPrice": 1980000,
+    "price": 1320000,
+    "discount": 33,
+    "rating": 5
+  }
+]

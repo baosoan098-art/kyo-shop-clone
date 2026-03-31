@@ -1,0 +1,144 @@
+[
+  {
+    "id": 201,
+    "name": "Nước Hoa Unisex Le Labo Another 13 Eau De Parfum",
+    "image": "/images/products/perfume-1.jpg",
+    "hoverImage": "/images/products/perfume-1-hover.jpg",
+    "origin": "Mỹ",
+    "categories": [
+      "Nước Hoa"
+    ],
+    "oldPrice": 8900000,
+    "price": 980000,
+    "discount": 30,
+    "rating": 5
+  },
+  {
+    "id": 202,
+    "name": "Nước Hoa Nam Bvlgari Man In Black EDP",
+    "image": "/images/products/perfume-2.jpg",
+    "hoverImage": "/images/products/perfume-2-hover.jpg",
+    "origin": "Italy",
+    "categories": [
+      "Nước Hoa"
+    ],
+    "oldPrice": 2950000,
+    "price": 2380000,
+    "discount": 20,
+    "rating": 5
+  },
+  {
+    "id": 203,
+    "name": "Set Quà Dior Cao Cấp Miss Dior Blooming Bouquet Mini & Rouge Dior Velvet 777",
+    "image": "/images/products/perfume-3.jpg",
+    "hoverImage": "/images/products/perfume-3-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Quà Tặng",
+      "Nước Hoa",
+      "Son Môi"
+    ],
+    "oldPrice": 1900000,
+    "price": 1380000,
+    "discount": 27,
+    "rating": 5
+  },
+  {
+    "id": 204,
+    "name": "Nước Hoa Unisex Maison Margiela Replica Sailing Day EDT",
+    "image": "/images/products/perfume-4.jpg",
+    "hoverImage": "/images/products/perfume-4-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Nước Hoa"
+    ],
+    "oldPrice": 3280000,
+    "price": 2580000,
+    "discount": 21,
+    "rating": 5
+  },
+  {
+    "id": 205,
+    "name": "Nước Hoa Nữ Kenzo Flower By Kenzo EDP",
+    "image": "/images/products/perfume-5.jpg",
+    "hoverImage": "/images/products/perfume-5-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Nước Hoa"
+    ],
+    "oldPrice": 2050000,
+    "price": 1520000,
+    "discount": 24,
+    "rating": 5
+  },
+  {
+    "id": 206,
+    "name": "Nước Hoa Mini Giorgio Armani Acqua Di Gioia EDP",
+    "image": "/images/products/perfume-6.jpg",
+    "hoverImage": "/images/products/perfume-6-hover.jpg",
+    "origin": "Mỹ",
+    "categories": [
+      "Nước Hoa"
+    ],
+    "oldPrice": 1450000,
+    "price": 1160000,
+    "discount": 20,
+    "rating": 5
+  },
+  {
+    "id": 207,
+    "name": "Nước Hoa Unisex Le Labo Another 13 Kèm Sample Mini",
+    "image": "/images/products/perfume-7.jpg",
+    "hoverImage": "/images/products/perfume-7-hover.jpg",
+    "origin": "Mỹ",
+    "categories": [
+      "Nước Hoa"
+    ],
+    "oldPrice": 2390000,
+    "price": 1960000,
+    "discount": 18,
+    "rating": 5
+  },
+  {
+    "id": 208,
+    "name": "Nước Hoa Nam Dior Sauvage Eau De Parfum",
+    "image": "/images/products/perfume-8.jpg",
+    "hoverImage": "/images/products/perfume-8-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Nước Hoa"
+    ],
+    "oldPrice": 3150000,
+    "price": 2480000,
+    "discount": 21,
+    "rating": 5
+  },
+  {
+    "id": 209,
+    "name": "Nước Hoa Narciso Rodriguez For Her EDP",
+    "image": "/images/products/perfume-9.jpg",
+    "hoverImage": "/images/products/perfume-9-hover.jpg",
+    "origin": "Mỹ",
+    "categories": [
+      "Nước Hoa"
+    ],
+    "oldPrice": 2890000,
+    "price": 2160000,
+    "discount": 25,
+    "rating": 5
+  },
+  {
+    "id": 210,
+    "name": "Nước Hoa Nữ Xanh Ngọc Fresh Bloom Limited Edition",
+    "image": "/images/products/perfume-10.jpg",
+    "hoverImage": "/images/products/perfume-10-hover.jpg",
+    "origin": "Nhật Bản",
+    "categories": [
+      "Nước Hoa"
+    ],
+    "oldPrice": 1980000,
+    "price": 1560000,
+    "discount": 21,
+    "rating": 5
+  }
+]

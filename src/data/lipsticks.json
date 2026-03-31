@@ -1,0 +1,142 @@
+[
+  {
+    "id": 101,
+    "name": "Son Dior Rouge Dior On Stage Lipstick 425 Wild Rosewood - Màu Hồng Đất",
+    "image": "/images/products/lipstick-1.jpg",
+    "hoverImage": "/images/products/lipstick-1-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 2200000,
+    "price": 1760000,
+    "discount": 20,
+    "rating": 5
+  },
+  {
+    "id": 102,
+    "name": "Son Hermès Matte 70 Rose Indien - Màu Hồng Cánh Sen",
+    "image": "/images/products/lipstick-2.jpg",
+    "hoverImage": "/images/products/lipstick-2-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 2800000,
+    "price": 2150000,
+    "discount": 23,
+    "rating": 5
+  },
+  {
+    "id": 103,
+    "name": "Son Kem Lì YSL Tatouage Couture Matte Stain 29 Twisted Nude - Màu Nâu Đất",
+    "image": "/images/products/lipstick-3.jpg",
+    "hoverImage": "/images/products/lipstick-3-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 1200000,
+    "price": 920000,
+    "discount": 23,
+    "rating": 5
+  },
+  {
+    "id": 104,
+    "name": "Son YSL The Bold High Pigment Lipstick 1971 Rouge Provocation - Màu Đỏ Gạch",
+    "image": "/images/products/lipstick-4.jpg",
+    "hoverImage": "/images/products/lipstick-4-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 1200000,
+    "price": 950000,
+    "discount": 21,
+    "rating": 5
+  },
+  {
+    "id": 105,
+    "name": "Son Dior Rouge Dior Satin 683 Rendez Vous - Màu Hồng Nâu",
+    "image": "/images/products/lipstick-5.jpg",
+    "hoverImage": "/images/products/lipstick-5-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 1100000,
+    "price": 890000,
+    "discount": 19,
+    "rating": 5
+  },
+  {
+    "id": 106,
+    "name": "Son Kem YSL Vinyl Cream 416 Psychedelic Chili - Màu Đỏ Cam Gạch",
+    "image": "/images/products/lipstick-6.jpg",
+    "hoverImage": "/images/products/lipstick-6-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 1250000,
+    "price": 940000,
+    "discount": 25,
+    "rating": 5
+  },
+  {
+    "id": 107,
+    "name": "Son Hermes Satin Rouge 64 Rouge Casaque - Màu Đỏ Gạch Trầm",
+    "image": "/images/products/lipstick-7.jpg",
+    "hoverImage": "/images/products/lipstick-7-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 2450000,
+    "price": 2150000,
+    "discount": 12,
+    "rating": 5
+  },
+  {
+    "id": 108,
+    "name": "Son Chanel Rouge Allure Velvet 58 Rouge Vie - Màu Hồng Đỏ",
+    "image": "/images/products/lipstick-8.jpg",
+    "hoverImage": "/images/products/lipstick-8-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 1950000,
+    "price": 1710000,
+    "discount": 12,
+    "rating": 5
+  },
+  {
+    "id": 109,
+    "name": "Son YSL Tatouage Couture Velvet Cream 216 Nude Emblem - Màu Hồng Đất",
+    "image": "/images/products/lipstick-9.jpg",
+    "hoverImage": "/images/products/lipstick-9-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 1250000,
+    "price": 1010000,
+    "discount": 19,
+    "rating": 5
+  },
+  {
+    "id": 110,
+    "name": "Son YSL Rouge Pur Couture The Slim 1966 - Màu Đỏ Nâu Gạch",
+    "image": "/images/products/lipstick-10.jpg",
+    "hoverImage": "/images/products/lipstick-10-hover.jpg",
+    "origin": "Pháp",
+    "categories": [
+      "Son Môi"
+    ],
+    "oldPrice": 1450000,
+    "price": 1140000,
+    "discount": 21,
+    "rating": 5
+  }
+]

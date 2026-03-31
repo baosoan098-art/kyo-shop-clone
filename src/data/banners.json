@@ -1,0 +1,41 @@
+[
+  {
+    "id": "banner-home-1",
+    "title": "KYO AUTHENTIC",
+    "subtitle": "Cosmetics",
+    "description": "Bộ sưu tập quà tặng và mỹ phẩm chính hãng, ưu đãi nổi bật cho mùa mua sắm này.",
+    "image": "/images/banner-kyo-1.jpg",
+    "buttonText": "Mua ngay",
+    "href": "/shop",
+    "active": true,
+    "sortOrder": 1,
+    "createdAt": "2026-03-30T00:00:00.000Z",
+    "updatedAt": "2026-03-30T00:00:00.000Z"
+  },
+  {
+    "id": "banner-home-2",
+    "title": "KYO AUTHENTIC",
+    "subtitle": "Holiday Sale",
+    "description": "Khám phá các set quà đang được yêu thích nhất với mức giá dễ chọn và hình ảnh sang trọng.",
+    "image": "/images/banner-kyo-3-2048x1024.jpg",
+    "buttonText": "Xem ngay",
+    "href": "/shop",
+    "active": true,
+    "sortOrder": 2,
+    "createdAt": "2026-03-30T00:00:00.000Z",
+    "updatedAt": "2026-03-30T00:00:00.000Z"
+  },
+  {
+    "id": "banner-home-3",
+    "title": "KYO AUTHENTIC",
+    "subtitle": "New Collection",
+    "description": "Mở ra những banner hình thật cho trang chủ để slider nhìn đúng kiểu shop của bạn.",
+    "image": "/images/banner-kyo-4-2048x1024%20(1).jpg",
+    "buttonText": "Khám phá",
+    "href": "/shop",
+    "active": true,
+    "sortOrder": 3,
+    "createdAt": "2026-03-30T00:00:00.000Z",
+    "updatedAt": "2026-03-30T00:00:00.000Z"
+  }
+]

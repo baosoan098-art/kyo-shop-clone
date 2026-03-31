@@ -1,0 +1,56 @@
+[
+  {
+    "id": "68f9a2a1-2538-4662-8efa-446fbe649500",
+    "fullName": "đoàn thái bảo",
+    "username": "baodoan",
+    "email": "hungnguyen33210@gmail.com",
+    "password": "baodoan@16",
+    "createdAt": "2026-03-24T01:45:05.244Z"
+  },
+  {
+    "id": "dde0b307-e3b8-4cef-8ff4-e502da08241a",
+    "fullName": "thaái",
+    "username": "baodoan1",
+    "email": "baosoan0110@gmail.com",
+    "password": "baodoan@16",
+    "createdAt": "2026-03-26T12:16:45.245Z",
+    "phone": "",
+    "role": "user"
+  },
+  {
+    "id": "f1670342-0137-4cd1-aaf4-068b5cc2bfba",
+    "fullName": "thái bảo",
+    "username": "bảo doàn",
+    "email": "duc332001@gmail.com",
+    "phone": "02876528",
+    "password": "baodoan@16",
+    "role": "user",
+    "createdAt": "2026-03-27T09:18:53.568Z"
+  },
+  {
+    "id": "9a2571d2-abec-472e-a7d6-670c509a7e71",
+    "fullName": "Bảo Đoàn",
+    "username": "baodoan20060106",
+    "email": "baodoan20060106@gmail.com",
+    "phone": "",
+    "password": "",
+    "role": "admin",
+    "createdAt": "2026-03-30T11:29:26.893Z",
+    "provider": "google",
+    "providerId": "112444030829099145194",
+    "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJCLFQboEJhvG9_zRgomEfsfzJoXED5sXeJXLwuAPAWG6ipCQ=s96-c"
+  },
+  {
+    "id": "228ecb9d-4bef-4c3e-90a2-2617b0fd7f24",
+    "fullName": "Bảo Đoàn",
+    "username": "baod11288",
+    "email": "baod11288@gmail.com",
+    "phone": "",
+    "password": "",
+    "role": "user",
+    "createdAt": "2026-03-30T12:19:28.183Z",
+    "provider": "google",
+    "providerId": "108885594247932487371",
+    "avatar": "https://lh3.googleusercontent.com/a/ACg8ocLQnNaJgbsLFujBUGk7bsIG9rcQoneTLcttHYsB3XG3kGs1CQ=s96-c"
+  }
+]
