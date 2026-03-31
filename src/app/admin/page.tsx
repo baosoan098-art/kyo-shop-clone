@@ -165,12 +165,17 @@ export default function AdminPage() {
         }));
 
       setProducts(nextProducts);
-      setCategories(nextCategories);
-      setOrders(nextOrders);
-      setUsers(nextUsers);
-      setStats({
-        totalProducts: nextProducts.length,
-        totalOrders: nextOrders.length,
+        const normalizedUsers = nextUsers.map((user) => ({
+          ...user,
+          role: user.role === "admin" ? "admin" : "user",
+        }));
+
+        setCategories(nextCategories);
+        setOrders(nextOrders);
+        setUsers(normalizedUsers);
+        setStats({
+          totalProducts: nextProducts.length,
+          totalOrders: nextOrders.length,
         totalUsers: nextUsers.length,
         revenue: nextOrders.reduce((sum, order) => {
           const canceled = (order.status || "").toLowerCase().includes("hủy");
