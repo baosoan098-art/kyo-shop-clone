@@ -159,7 +159,7 @@ export default function AdminPage() {
       }));
       const nextCategories = toArray<Category>(categoryData, ["categories", "items", "data"]);
       const nextOrders = toArray<Order>(orderData, ["orders", "items", "data"]);
-    const nextUsers: User[] = toArray<User>(userData, ["users", "items", "data"]).map((user) => ({
+      const nextUsers: User[] = toArray<User>(userData, ["users", "items", "data"]).map((user) => ({
         ...user,
         role: (user.role === "admin" ? "admin" : "user") as Role,
       }));
