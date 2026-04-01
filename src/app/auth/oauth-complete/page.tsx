@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function decodeSession(session: string) {
@@ -18,7 +18,8 @@ function decodeSession(session: string) {
   }
 }
 
-export default function OAuthCompletePage() {
+// Bóc tách logic xử lý OAuth ra một component riêng
+function OAuthHandler() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [ready, setReady] = useState(false);
@@ -113,5 +114,14 @@ export default function OAuthCompletePage() {
         </p>
       </div>
     </div>
+  );
+}
+
+// Component chính export ra ngoài, bọc Suspense xung quanh
+export default function OAuthCompletePage() {
+  return (
+    <Suspense fallback={<div className="flex min-h-[60vh] items-center justify-center text-lg text-slate-500">Đang tải cấu hình xác thực...</div>}>
+      <OAuthHandler />
+    </Suspense>
   );
 }
