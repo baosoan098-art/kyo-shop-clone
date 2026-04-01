@@ -35,8 +35,8 @@ export async function upsertOAuthUser(profile: OAuthProfile) {
   }
 
   const fullName =
-    profile.name ??
-    [profile.given_name, profile.family_name].filter(Boolean).join(" ") ||
+    (profile.name ??
+      [profile.given_name, profile.family_name].filter(Boolean).join(" ")) ||
     "Khách hàng";
 
   const newUser = {
