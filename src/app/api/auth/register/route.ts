@@ -1,131 +1,80 @@
-import { randomUUID } from "crypto";
-import { promises as fs } from "fs";
-import path from "path";
-
+import crypto from "node:crypto";
 import { NextResponse } from "next/server";
+import { getDb } from "@/lib/mongo";
 
-type StoredUser = {
-  id: string;
-  fullName: string;
-  username: string;
-  email: string;
-  phone: string;
-  role: "admin" | "user";
-  password: string;
-  createdAt: string;
-};
-
-const USERS_FILE_PATH = path.join(process.cwd(), "src", "data", "users.json");
-
-async function readUsers() {
-  try {
-    const raw = await fs.readFile(USERS_FILE_PATH, "utf8");
-    const parsed = JSON.parse(raw);
-
-    return Array.isArray(parsed) ? (parsed as StoredUser[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-async function writeUsers(users: StoredUser[]) {
-  await fs.writeFile(USERS_FILE_PATH, `${JSON.stringify(users, null, 2)}\n`, "utf8");
+function isGmail(email: string) {
+  return email.toLowerCase().endsWith("@gmail.com");
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const fullName = String(body?.fullName ?? "").trim();
-    const username = String(body?.username ?? "").trim();
-    const email = String(body?.email ?? "").trim().toLowerCase();
-    const phone = String(body?.phone ?? "").trim();
-    const normalizedPhone = phone.replace(/\D/g, "");
-    const password = String(body?.password ?? "");
-    const confirmPassword = String(body?.confirmPassword ?? "");
+    const body = (await request.json()) as Record<string, string>;
+    const fullName = body.fullName?.trim();
+    const username = body.username?.trim();
+    const email = body.email?.trim();
+    const phone = body.phone?.trim();
+    const password = body.password?.trim();
 
-    if (!fullName || !username || !email || !phone || !password || !confirmPassword) {
+    if (!fullName || !username || !email || !phone || !password) {
       return NextResponse.json(
-        { error: "Vui lòng nhập đầy đủ họ tên, tài khoản, email, số điện thoại và mật khẩu." },
+        { message: "Vui lòng nhập đủ thông tin." },
         { status: 400 },
       );
     }
 
-    if (!email.endsWith("@gmail.com")) {
+    if (!isGmail(email)) {
       return NextResponse.json(
-        { error: "Email đăng ký phải dùng đuôi @gmail.com." },
+        { message: "Email phải là @gmail.com." },
         { status: 400 },
       );
     }
 
-    if (normalizedPhone.length !== 10) {
+    if (!/^\d{10}$/.test(phone)) {
       return NextResponse.json(
-        { error: "Số điện thoại phải đúng 10 số." },
+        { message: "Số điện thoại phải đủ 10 số." },
         { status: 400 },
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
-        { error: "Mật khẩu phải có ít nhất 6 ký tự." },
+        { message: "Mật khẩu tối thiểu 6 ký tự." },
         { status: 400 },
       );
     }
 
-    if (password !== confirmPassword) {
-      return NextResponse.json({ error: "Nhập lại mật khẩu chưa khớp." }, { status: 400 });
+    const db = await getDb();
+    const users = db.collection("users");
+
+    const existing = await users.findOne({
+      $or: [{ username }, { email }],
+    });
+
+    if (existing) {
+      return NextResponse.json(
+        { message: "Tài khoản hoặc email đã tồn tại." },
+        { status: 409 },
+      );
     }
 
-    const users = await readUsers();
-    const normalizedUsername = username.toLowerCase();
-
-    const duplicatedUsername = users.some(
-      (user) => user.username.trim().toLowerCase() === normalizedUsername,
-    );
-
-    if (duplicatedUsername) {
-      return NextResponse.json({ error: "Tài khoản này đã tồn tại." }, { status: 409 });
-    }
-
-    const duplicatedEmail = users.some(
-      (user) => user.email.trim().toLowerCase() === email,
-    );
-
-    if (duplicatedEmail) {
-      return NextResponse.json({ error: "Email này đã tồn tại." }, { status: 409 });
-    }
-
-    const hasAdmin = users.some((user) => user.role === "admin");
-    const nextUser: StoredUser = {
-      id: randomUUID(),
+    const newUser = {
+      id: crypto.randomUUID(),
       fullName,
       username,
       email,
-      phone: normalizedPhone,
-      role: hasAdmin ? "user" : "admin",
+      phone,
       password,
+      role: "user",
       createdAt: new Date().toISOString(),
     };
 
-    users.push(nextUser);
-    await writeUsers(users);
+    await users.insertOne(newUser);
 
-    return NextResponse.json({
-      success: true,
-      message: "Đăng ký thành công.",
-      user: {
-        id: nextUser.id,
-        fullName: nextUser.fullName,
-        username: nextUser.username,
-        email: nextUser.email,
-        phone: nextUser.phone,
-        role: nextUser.role,
-        createdAt: nextUser.createdAt,
-      },
-    });
-  } catch {
-    return NextResponse.json(
-      { error: "Không thể đăng ký tài khoản lúc này." },
-      { status: 500 },
-    );
+    const { password: _pw, ...safeUser } = newUser;
+    return NextResponse.json({ ok: true, user: safeUser });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Đăng ký thất bại.";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }

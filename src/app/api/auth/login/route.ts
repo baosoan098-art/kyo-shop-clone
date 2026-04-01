@@ -1,84 +1,37 @@
-import { promises as fs } from "fs";
-import path from "path";
-
 import { NextResponse } from "next/server";
-
-type StoredUser = {
-  id: string;
-  fullName: string;
-  username: string;
-  email: string;
-  phone?: string;
-  role?: "admin" | "user";
-  password: string;
-  createdAt: string;
-};
-
-const USERS_FILE_PATH = path.join(process.cwd(), "src", "data", "users.json");
-
-async function readUsers() {
-  try {
-    const raw = await fs.readFile(USERS_FILE_PATH, "utf8");
-    const parsed = JSON.parse(raw);
-
-    return Array.isArray(parsed) ? (parsed as StoredUser[]) : [];
-  } catch {
-    return [];
-  }
-}
+import { getDb } from "@/lib/mongo";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const identifier = String(
-      body?.identifier ?? body?.account ?? body?.username ?? body?.email ?? "",
-    ).trim();
-    const password = String(body?.password ?? "");
+    const body = (await request.json()) as Record<string, string>;
+    const identifier = body.identifier?.trim();
+    const password = body.password?.trim();
 
     if (!identifier || !password) {
       return NextResponse.json(
-        { error: "Vui lòng nhập tài khoản/email và mật khẩu." },
+        { message: "Vui lòng nhập tài khoản và mật khẩu." },
         { status: 400 },
       );
     }
 
-    const normalizedIdentifier = identifier.toLowerCase();
-    const users = await readUsers();
-
-    const user = users.find((item) => {
-      const username = item.username?.trim().toLowerCase() ?? "";
-      const email = item.email?.trim().toLowerCase() ?? "";
-
-      return username === normalizedIdentifier || email === normalizedIdentifier;
+    const db = await getDb();
+    const users = db.collection("users");
+    const user = await users.findOne({
+      $or: [{ username: identifier }, { email: identifier }],
     });
 
     if (!user || user.password !== password) {
       return NextResponse.json(
-        { error: "Sai tài khoản hoặc mật khẩu." },
+        { message: "Sai tài khoản hoặc mật khẩu." },
         { status: 401 },
       );
     }
 
-    const hasAdmin = users.some((item) => item.role === "admin");
-    const resolvedRole = user.role ?? (hasAdmin ? "user" : "admin");
-
-    return NextResponse.json({
-      success: true,
-      message: "Đăng nhập thành công.",
-      user: {
-        id: user.id,
-        fullName: user.fullName,
-        username: user.username,
-        email: user.email,
-        phone: user.phone ?? "",
-        role: resolvedRole,
-        createdAt: user.createdAt,
-      },
-    });
-  } catch {
-    return NextResponse.json(
-      { error: "Không thể đăng nhập lúc này." },
-      { status: 500 },
-    );
+    const { password: _pw, ...safeUser } = user as Record<string, unknown>;
+    return NextResponse.json({ ok: true, user: safeUser });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Đăng nhập thất bại.";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }

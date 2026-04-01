@@ -1,47 +1,15 @@
 import { NextResponse } from "next/server";
+import { COLLECTIONS, getCollection } from "@/lib/server/mongoCollections";
 
-import { readDataArray } from "@/lib/server/dataStore";
-
-export const runtime = "nodejs";
-
-type ReviewItem = {
-  id: string;
-  productName?: string;
-  productKey?: string;
-  authorName?: string;
-  authorEmail?: string;
-  rating?: number;
-  comment?: string;
-  createdAt?: string;
-};
-
-export async function GET(request: Request) {
+export async function GET() {
   try {
-    const url = new URL(request.url);
-    const keyword = String(url.searchParams.get("q") ?? "").trim().toLowerCase();
-    let reviews = await readDataArray<ReviewItem>("reviews");
-
-    reviews = [...reviews].sort((left, right) =>
-      String(right.createdAt ?? "").localeCompare(String(left.createdAt ?? "")),
-    );
-
-    if (keyword) {
-      reviews = reviews.filter((review) =>
-        [
-          review.productName,
-          review.productKey,
-          review.authorName,
-          review.authorEmail,
-          review.comment,
-        ].some((value) => String(value ?? "").toLowerCase().includes(keyword)),
-      );
-    }
-
-    return NextResponse.json({ items: reviews });
-  } catch {
-    return NextResponse.json(
-      { error: "Không thể tải danh sách đánh giá." },
-      { status: 500 },
-    );
+    const reviews = await (await getCollection(COLLECTIONS.reviews))
+      .find({})
+      .toArray();
+    return NextResponse.json({ reviews });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Không tải được đánh giá.";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }

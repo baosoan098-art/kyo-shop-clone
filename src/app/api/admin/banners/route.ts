@@ -1,40 +1,34 @@
-import { randomUUID } from "crypto";
+import crypto from "node:crypto";
 import { NextResponse } from "next/server";
-import {
-  buildBannerPayload,
-  readBanners,
-  writeBanners,
-} from "@/lib/server/bannerStore";
+import { COLLECTIONS, getCollection } from "@/lib/server/mongoCollections";
 
 export async function GET() {
-  const banners = await readBanners();
-
-  return NextResponse.json({ items: banners });
+  try {
+    const banners = await (await getCollection(COLLECTIONS.banners))
+      .find({})
+      .toArray();
+    return NextResponse.json({ banners });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Không tải được banner.";
+    return NextResponse.json({ message }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
-  const body = (await request.json()) as Record<string, unknown>;
-  const payload = buildBannerPayload(body);
+  try {
+    const payload = (await request.json()) as Record<string, unknown>;
+    const collection = await getCollection(COLLECTIONS.banners);
+    const banner = {
+      ...payload,
+      id: payload.id ?? crypto.randomUUID(),
+    };
 
-  if (!payload.title) {
-    return NextResponse.json(
-      { message: "Tiêu đề banner là bắt buộc." },
-      { status: 400 },
-    );
+    await collection.insertOne(banner);
+    return NextResponse.json({ ok: true, banner });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Không thêm được banner.";
+    return NextResponse.json({ message }, { status: 500 });
   }
-
-  const banners = await readBanners();
-  const now = new Date().toISOString();
-
-  const nextBanner = {
-    id: randomUUID(),
-    ...payload,
-    createdAt: now,
-    updatedAt: now,
-  };
-
-  banners.push(nextBanner);
-  await writeBanners(banners);
-
-  return NextResponse.json({ item: nextBanner }, { status: 201 });
 }

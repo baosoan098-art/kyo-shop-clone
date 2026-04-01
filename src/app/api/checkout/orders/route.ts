@@ -1,67 +1,41 @@
+import crypto from "node:crypto";
 import { NextResponse } from "next/server";
-
-import { addOrder } from "@/lib/server/orderStore";
+import { COLLECTIONS, getCollection } from "@/lib/server/mongoCollections";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as {
-      order?: Record<string, unknown>;
-    };
+    const body = (await request.json()) as Record<string, unknown>;
+    const order = body.order as Record<string, unknown> | undefined;
 
-    const order = body.order;
-
-    if (!order || typeof order !== "object") {
+    if (!order || !Array.isArray(order.items) || order.items.length === 0) {
       return NextResponse.json(
-        { error: "Thiếu dữ liệu đơn hàng." },
+        { message: "Giỏ hàng trống hoặc dữ liệu không hợp lệ." },
         { status: 400 },
       );
     }
 
-    const items = Array.isArray(order.items) ? order.items : [];
-
-    if (items.length === 0) {
-      return NextResponse.json(
-        { error: "Giỏ hàng đang trống." },
-        { status: 400 },
-      );
-    }
-
-    const paymentMethod =
-      typeof order.paymentMethod === "string" ? order.paymentMethod : "cod";
+    const paymentMethod = String(order.paymentMethod ?? "cod");
+    const paymentStatus =
+      paymentMethod === "bank_transfer" ? "pending" : "unpaid";
+    const status =
+      paymentMethod === "bank_transfer" ? "Chờ thanh toán" : "Chờ xác nhận";
 
     const nextOrder = {
-      id: crypto.randomUUID(),
       ...order,
-      items,
+      id: order.id ?? crypto.randomUUID(),
       paymentMethod,
-      paymentStatus:
-        paymentMethod === "bank_transfer"
-          ? "pending"
-          : typeof order.paymentStatus === "string"
-            ? order.paymentStatus
-            : "unpaid",
-      status:
-        paymentMethod === "bank_transfer"
-          ? "Chờ thanh toán"
-          : typeof order.status === "string"
-            ? order.status
-            : "Chờ xác nhận",
-      createdAt:
-        typeof order.createdAt === "string"
-          ? order.createdAt
-          : new Date().toISOString(),
+      paymentStatus,
+      status,
+      createdAt: order.createdAt ?? new Date().toISOString(),
     };
 
-    addOrder(nextOrder);
+    const collection = await getCollection(COLLECTIONS.orders);
+    await collection.insertOne(nextOrder);
 
-    return NextResponse.json({
-      ok: true,
-      order: nextOrder,
-    });
-  } catch {
-    return NextResponse.json(
-      { error: "Không thể tạo đơn hàng lúc này." },
-      { status: 500 },
-    );
+    return NextResponse.json({ ok: true, order: nextOrder });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Không tạo được đơn hàng.";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }

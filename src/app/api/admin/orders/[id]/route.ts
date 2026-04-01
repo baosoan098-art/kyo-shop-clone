@@ -1,64 +1,58 @@
 import { NextResponse } from "next/server";
+import { COLLECTIONS, getCollection } from "@/lib/server/mongoCollections";
 
-import {
-  readOrders,
-  updateOrderById,
-  writeOrders,
-} from "@/lib/server/orderStore";
+type RouteParams = Promise<{ id: string }>;
 
 export async function PATCH(
   request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: RouteParams },
 ) {
-  const { id } = await params;
-
   try {
-    const body = (await request.json()) as Record<string, unknown>;
-    const updatedOrder = updateOrderById(id, body);
+    const { id } = await params;
+    const payload = (await request.json()) as Record<string, unknown>;
+    const collection = await getCollection(COLLECTIONS.orders);
 
-    if (!updatedOrder) {
+    const result = await collection.findOneAndUpdate(
+      { id: String(id) },
+      { $set: payload },
+      { returnDocument: "after" },
+    );
+
+    if (!result.value) {
       return NextResponse.json(
-        { error: "Không tìm thấy đơn hàng." },
+        { message: "Không tìm thấy đơn hàng." },
         { status: 404 },
       );
     }
 
-    return NextResponse.json({
-      ok: true,
-      order: updatedOrder,
-    });
-  } catch {
-    return NextResponse.json(
-      { error: "Không thể cập nhật đơn hàng." },
-      { status: 500 },
-    );
+    return NextResponse.json({ ok: true, order: result.value });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Không cập nhật được đơn hàng.";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: RouteParams },
 ) {
-  const { id } = await params;
-
   try {
-    const orders = readOrders();
-    const nextOrders = orders.filter((order) => String(order.id) !== id);
+    const { id } = await params;
+    const collection = await getCollection(COLLECTIONS.orders);
+    const result = await collection.deleteOne({ id: String(id) });
 
-    if (nextOrders.length === orders.length) {
+    if (!result.deletedCount) {
       return NextResponse.json(
-        { error: "Không tìm thấy đơn hàng." },
+        { message: "Không tìm thấy đơn hàng." },
         { status: 404 },
       );
     }
 
-    writeOrders(nextOrders);
-
     return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json(
-      { error: "Không thể xóa đơn hàng." },
-      { status: 500 },
-    );
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Không xóa được đơn hàng.";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }

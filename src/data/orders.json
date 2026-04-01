@@ -1,5 +1,34 @@
 [
   {
+    "id": "3ca220b2-b203-4de1-8e7f-cb8093d17209",
+    "orderNumber": "KYO-1775048850223",
+    "customer": {
+      "fullName": "Bảo Đoàn",
+      "phone": "0778778888",
+      "email": "baosoan098@gmail.com",
+      "address": "ádaskdla"
+    },
+    "items": [
+      {
+        "id": "gift-3",
+        "name": "Set YSL Candy Glow Pink Sunrise mini và YSL Libre EDP mini kèm túi hàng",
+        "image": "/images/products/product-3.jpg",
+        "price": 1120000,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 1120000,
+    "shippingFee": 0,
+    "total": 1120000,
+    "note": "",
+    "paymentMethod": "vnpay",
+    "paymentProvider": "vnpay",
+    "paymentStatus": "pending",
+    "status": "Chờ thanh toán",
+    "paymentUrl": "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=112000000&vnp_Command=pay&vnp_CreateDate=20260401200744&vnp_CurrCode=VND&vnp_ExpireDate=20260401202244&vnp_IpAddr=%3A%3A1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang+KYO+1775048850223&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A3000%2Fpayment%2Fvnpay%2Freturn&vnp_SecureHash=9d4b4f3c4ffeec8aa8de6ae47112661a91124140074346603108ce004e86a0e72ece5a166ad70338f99d404b2cf2747dbf17923f38b1bd131c63dd3dd874e66b&vnp_TmnCode=O30PEM5Q&vnp_TxnRef=KYO1775048850223&vnp_Version=2.1.0",
+    "createdAt": "2026-04-01T13:07:43.299Z"
+  },
+  {
     "id": "42f5cf8c-672c-4a21-9b3a-a2b469ebad5a",
     "orderNumber": "KYO-1774937144719",
     "customer": {

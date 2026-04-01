@@ -1,35 +1,39 @@
 import { NextResponse } from "next/server";
+import { COLLECTIONS, getCollection } from "@/lib/server/mongoCollections";
 
-import { updateOrderById } from "@/lib/server/orderStore";
+type RouteParams = Promise<{ id: string }>;
 
 export async function PATCH(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: RouteParams },
 ) {
-  const { id } = await params;
-
   try {
-    const updatedOrder = updateOrderById(id, {
-      paymentStatus: "paid",
-      status: "Chờ xác nhận",
-      paymentPaidAt: new Date().toISOString(),
-    });
+    const { id } = await params;
+    const collection = await getCollection(COLLECTIONS.orders);
 
-    if (!updatedOrder) {
+    const result = await collection.findOneAndUpdate(
+      { id: String(id) },
+      {
+        $set: {
+          paymentStatus: "paid",
+          status: "Chờ xác nhận",
+          paymentPaidAt: new Date().toISOString(),
+        },
+      },
+      { returnDocument: "after" },
+    );
+
+    if (!result.value) {
       return NextResponse.json(
-        { error: "Không tìm thấy đơn hàng." },
+        { message: "Không tìm thấy đơn hàng." },
         { status: 404 },
       );
     }
 
-    return NextResponse.json({
-      ok: true,
-      order: updatedOrder,
-    });
-  } catch {
-    return NextResponse.json(
-      { error: "Không thể xác nhận thanh toán." },
-      { status: 500 },
-    );
+    return NextResponse.json({ ok: true, order: result.value });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Không cập nhật được đơn hàng.";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }

@@ -1,35 +1,16 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
 import { NextResponse } from "next/server";
+import { COLLECTIONS, getCollection } from "@/lib/server/mongoCollections";
 
 type RouteParams = Promise<{ resource: string; id: string }>;
 
-const RESOURCE_TO_FILE = {
-  products: "products.json",
-  lipsticks: "lipsticks.json",
-  perfumes: "perfumes.json",
-} as const;
+const RESOURCE_KEYS = ["products", "lipsticks", "perfumes"] as const;
 
-function getDataFile(resource: string) {
-  const fileName =
-    RESOURCE_TO_FILE[resource as keyof typeof RESOURCE_TO_FILE] ?? null;
-
-  if (!fileName) {
+function resolveCollection(resource: string) {
+  if (!RESOURCE_KEYS.includes(resource as typeof RESOURCE_KEYS[number])) {
     throw new Error("Nguồn dữ liệu không hợp lệ.");
   }
 
-  return path.join(process.cwd(), "src", "data", fileName);
-}
-
-async function readCollection(resource: string) {
-  const filePath = getDataFile(resource);
-  const raw = await fs.readFile(filePath, "utf8");
-  const parsed = JSON.parse(raw);
-
-  return {
-    filePath,
-    items: Array.isArray(parsed) ? parsed : [],
-  };
+  return COLLECTIONS[resource as "products" | "lipsticks" | "perfumes"];
 }
 
 export async function PATCH(
@@ -39,32 +20,25 @@ export async function PATCH(
   try {
     const { resource, id } = await params;
     const payload = (await request.json()) as Record<string, unknown>;
-    const { filePath, items } = await readCollection(resource);
-    const index = items.findIndex(
-      (item: Record<string, unknown>) => String(item.id) === String(id),
+    const collection = await getCollection(resolveCollection(resource));
+
+    const result = await collection.findOneAndUpdate(
+      { id: String(id) },
+      { $set: payload },
+      { returnDocument: "after" },
     );
 
-    if (index < 0) {
+    if (!result.value) {
       return NextResponse.json(
         { message: "Không tìm thấy sản phẩm." },
         { status: 404 },
       );
     }
 
-    const nextItem = {
-      ...items[index],
-      ...payload,
-      id: items[index].id,
-    };
-
-    items[index] = nextItem;
-    await fs.writeFile(filePath, JSON.stringify(items, null, 2), "utf8");
-
-    return NextResponse.json({ ok: true, item: nextItem });
+    return NextResponse.json({ ok: true, item: result.value });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Không cập nhật được sản phẩm.";
-
     return NextResponse.json({ message }, { status: 500 });
   }
 }
@@ -75,25 +49,20 @@ export async function DELETE(
 ) {
   try {
     const { resource, id } = await params;
-    const { filePath, items } = await readCollection(resource);
-    const nextItems = items.filter(
-      (item: Record<string, unknown>) => String(item.id) !== String(id),
-    );
+    const collection = await getCollection(resolveCollection(resource));
+    const result = await collection.deleteOne({ id: String(id) });
 
-    if (nextItems.length === items.length) {
+    if (!result.deletedCount) {
       return NextResponse.json(
         { message: "Không tìm thấy sản phẩm." },
         { status: 404 },
       );
     }
 
-    await fs.writeFile(filePath, JSON.stringify(nextItems, null, 2), "utf8");
-
     return NextResponse.json({ ok: true });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Không xóa được sản phẩm.";
-
     return NextResponse.json({ message }, { status: 500 });
   }
 }

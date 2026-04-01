@@ -52,5 +52,18 @@
     "provider": "google",
     "providerId": "108885594247932487371",
     "avatar": "https://lh3.googleusercontent.com/a/ACg8ocLQnNaJgbsLFujBUGk7bsIG9rcQoneTLcttHYsB3XG3kGs1CQ=s96-c"
+  },
+  {
+    "id": "7fef5864-2e4b-46f1-bfea-81aeec4ffd9b",
+    "fullName": "Bảo Đoàn",
+    "username": "baosoan098",
+    "email": "baosoan098@gmail.com",
+    "phone": "",
+    "password": "",
+    "role": "user",
+    "createdAt": "2026-04-01T12:29:48.389Z",
+    "provider": "google",
+    "providerId": "110938282652466979080",
+    "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIVjPZvKtrfrFb3jvywMLgOlc0N88A4z20hUFe_DM_aAhD1cw=s96-c"
   }
 ]
