@@ -159,23 +159,19 @@ export default function AdminPage() {
       }));
       const nextCategories = toArray<Category>(categoryData, ["categories", "items", "data"]);
       const nextOrders = toArray<Order>(orderData, ["orders", "items", "data"]);
-      const nextUsers = toArray<User>(userData, ["users", "items", "data"]).map((user) => ({
-          ...user,
-          role: user.role === "admin" ? "admin" : "user",
-        }));
+    const nextUsers: User[] = toArray<User>(userData, ["users", "items", "data"]).map((user) => ({
+        ...user,
+        role: (user.role === "admin" ? "admin" : "user") as Role,
+      }));
 
       setProducts(nextProducts);
-        const normalizedUsers = nextUsers.map((user) => ({
-          ...user,
-          role: user.role === "admin" ? ("admin" as const) : ("user" as const),
-        })) as typeof users;
-
-        setCategories(nextCategories);
-        setOrders(nextOrders);
-        setUsers(normalizedUsers);
-        setStats({
-          totalProducts: nextProducts.length,
-          totalOrders: nextOrders.length,
+      setCategories(nextCategories);
+      setOrders(nextOrders);
+      setUsers(nextUsers);
+      
+      setStats({
+        totalProducts: nextProducts.length,
+        totalOrders: nextOrders.length,
         totalUsers: nextUsers.length,
         revenue: nextOrders.reduce((sum, order) => {
           const canceled = (order.status || "").toLowerCase().includes("hủy");
